@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AJI BAM BAM — concept for approval</title>
+<meta name="description" content="Concept site for Maayan Fireberg / Aji Bam Bam. For artist approval.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;400&family=Heebo:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#070707; --fg:#f3f1ec; --muted:#8c8880; --faint:#5c5954;
+  --accent:#e85c04; --line:#242220; --surface:#111110;
+  --sans:"Heebo",system-ui,sans-serif;
+  --serif:"Frank Ruhl Libre","Times New Roman",serif;
+}
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; background:var(--bg); }
+body {
+  margin:0; background:var(--bg); color:var(--fg);
+  font-family:var(--sans); -webkit-font-smoothing:antialiased;
+}
+button, [role="button"] { cursor:pointer; }
+a { color:inherit; }
+img { display:block; max-width:100%; }
+.kicker {
+  font-size:.6875rem; letter-spacing:.28em; font-weight:500;
+  text-transform:uppercase; color:var(--muted);
+}
+.display {
+  font-size:clamp(3.15rem,16vw,9.25rem); line-height:.86;
+  letter-spacing:-.035em; font-weight:200;
+}
+.section {
+  font-family:var(--serif); font-weight:300;
+  font-size:clamp(2rem,6vw,4.25rem); line-height:.95;
+}
+.lede { font-family:var(--serif); font-weight:300; font-size:clamp(1.15rem,2.4vw,1.55rem); }
+.wrap { padding-inline:1rem; }
+@media (min-width:768px){ .wrap { padding-inline:2rem; } }
+.snap {
+  display:flex; overflow-x:auto; scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling:touch; scrollbar-width:none;
+  padding:0 1rem 3rem;
+}
+.snap::-webkit-scrollbar { display:none; }
+.cell { flex:0 0 78vw; scroll-snap-align:center; padding-inline-end:1rem; }
+@media (min-width:640px){ .cell { flex-basis:48vw; } }
+@media (min-width:1024px){ .cell { flex-basis:32vw; } }
+.film { position:relative; aspect-ratio:9/16; overflow:hidden; background:var(--surface); }
+.film img { width:100%; height:100%; object-fit:cover; }
+.play {
+  position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+  background:rgb(7 7 7 / .28); text-decoration:none;
+}
+.disc {
+  width:4rem; height:4rem; border-radius:999px;
+  border:1px solid rgb(243 241 236 / .8);
+  display:flex; align-items:center; justify-content:center;
+  background:rgb(7 7 7 / .5);
+}
+.tri {
+  width:0; height:0; margin-inline-start:3px;
+  border-block:8px solid transparent;
+  border-inline-start:12px solid var(--fg);
+}
+.still {
+  height:min(58svh,28rem); display:flex; align-items:center; justify-content:center;
+  background:var(--surface); overflow:hidden;
+}
+.still img { max-height:100%; max-width:100%; object-fit:contain; }
+header.top {
+  position:fixed; inset-inline:0; top:0; z-index:40; height:4.5rem;
+  display:flex; align-items:center; justify-content:space-between;
+  padding-inline:1rem;
+  background:linear-gradient(to bottom, rgb(7 7 7 / .75), transparent);
+}
+@media (min-width:768px){ header.top { padding-inline:2rem; } }
+nav.desk { display:none; gap:1.25rem; align-items:center; }
+@media (min-width:960px){ nav.desk { display:flex; } }
+nav.desk a { text-decoration:none; color:var(--fg); }
+.lang { display:flex; align-items:center; gap:.25rem; }
+.lang button {
+  background:none; border:0; color:var(--muted); min-height:44px; min-width:44px;
+  font:inherit; letter-spacing:.28em; font-size:.6875rem; font-weight:500;
+}
+html[lang="en"] .lang .btn-en, html[lang="he"] .lang .btn-he { color:var(--fg); }
+html[lang="en"] .he { display:none !important; }
+html[lang="he"] .en { display:none !important; }
+.banner {
+  padding:.85rem 1rem; border-bottom:1px solid var(--line);
+  background:var(--surface);
+  display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap; align-items:center;
+}
+.banner a { color:var(--accent); text-decoration:none; }
+.hero { position:relative; min-height:100svh; overflow:hidden; }
+.hero-img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+.hero-shade {
+  position:absolute; inset:0;
+  background:linear-gradient(to top, var(--bg), transparent 42%);
+}
+.hero-copy {
+  position:relative; z-index:2; min-height:100svh;
+  display:flex; flex-direction:column; justify-content:flex-end;
+  padding:7.5rem 1rem 2.5rem;
+}
+@media (min-width:768px){ .hero-copy { padding-inline:2rem; } }
+.rule { height:1px; width:min(100%,28rem); background:var(--accent); margin:1.5rem 0; }
+section, footer { border-top:1px solid var(--line); }
+.muted { color:var(--muted); }
+.faint { color:var(--faint); }
+.accent { color:var(--accent); }
+.grid2 { display:grid; gap:.75rem; margin-top:3rem; }
+@media (min-width:640px){ .grid2 { grid-template-columns:1fr 1fr; } }
+.cta {
+  display:inline-flex; min-height:48px; align-items:center;
+  background:var(--fg); color:var(--bg); padding:0 1.25rem;
+  text-decoration:none; font-weight:500;
+}
+@media (prefers-reduced-motion:reduce){ html { scroll-behavior:auto; } }
+</style>
+</head>
+<body>
+<div class="banner">
+  <p class="kicker en" style="color:var(--fg);margin:0">Concept for approval — Maayan Fireberg</p>
+  <p class="kicker he" style="color:var(--fg);margin:0">קונספט לאישור — מעין פיירברג</p>
+  <a class="kicker" href="https://www.instagram.com/aji.bam.bam0/" target="_blank" rel="noreferrer">@aji.bam.bam0</a>
+</div>
+
+<header class="top">
+  <a href="#top" style="text-decoration:none">
+    <span lang="he" style="display:block;font-weight:500">אג׳י באם באם</span>
+    <span class="kicker" style="margin-top:.25rem;display:block">AJI BAM BAM</span>
+  </a>
+  <nav class="desk kicker">
+    <a href="#reels"><span class="en">Reels</span><span class="he">רילס</span></a>
+    <a href="#works"><span class="en">Works</span><span class="he">עבודות</span></a>
+    <a href="#about"><span class="en">About</span><span class="he">אודות</span></a>
+    <a href="#inquiry"><span class="en">Inquiry</span><span class="he">פנייה</span></a>
+    <a href="https://www.instagram.com/aji.bam.bam0/" target="_blank" rel="noreferrer" class="muted">@aji.bam.bam0</a>
+  </nav>
+  <div class="lang" role="group" aria-label="Language">
+    <button type="button" class="btn-en" onclick="setLang('en')">EN</button>
+    <span class="faint">/</span>
+    <button type="button" class="btn-he" onclick="setLang('he')">עב</button>
+  </div>
+</header>
+
+<section class="hero" id="top" style="border-top:0">
+  <img class="hero-img" src="img/hero.jpg" alt="">
+  <div class="hero-shade"></div>
+  <div class="hero-copy">
+    <p class="kicker" style="color:rgb(243 241 236 / .85);margin:0 0 1.5rem">
+      <span class="en">Maayan Fireberg</span><span class="he">מעין פיירברג</span>
+    </p>
+    <h1 class="display" lang="he" dir="rtl">אג׳י<br>באם<br>באם</h1>
+    <p class="lede" style="margin:2rem 0 0;max-width:28rem">
+      <span class="en">There isn’t a word for it.</span>
+      <span class="he">אין לזה מילה בעברית.</span>
+    </p>
+    <p class="muted" style="margin:.45rem 0 0;font-family:var(--serif);font-weight:300">
+      <span class="en">אין לזה מילה בעברית.</span>
+      <span class="he">There isn’t a word for it.</span>
+    </p>
+    <div class="rule"></div>
+    <p class="muted" style="margin:0;font-size:.9rem">
+      <span class="en">He makes art. He sells it.</span>
+      <span class="he">הוא יוצר ומוכר אומנות.</span>
+    </p>
+    <a class="kicker" href="#reels" style="margin:2.5rem 0 0;display:inline-flex;min-height:44px;align-items:center;color:var(--fg);text-decoration:none">
+      <span class="en">Enter the cinema</span><span class="he">כניסה לקולנוע</span>
+    </a>
+  </div>
+</section>
+
+<section id="reels" style="padding-top:4rem">
+  <div class="wrap">
+    <p class="kicker accent">Cinema</p>
+    <h2 class="section" style="margin:.75rem 0 0">
+      <span class="en">The studio, on film.</span>
+      <span class="he">הסטודיו, על פילם.</span>
+    </h2>
+    <p class="muted" style="max-width:32rem;margin:1.25rem 0 0;font-size:.9rem;line-height:1.6">
+      <span class="en">His Instagram Reels. Swipe sideways. Tap a film to watch it on Instagram.</span>
+      <span class="he">הרילס מאינסטגרם. החליקו הצידה. לחצו על סרט כדי לצפות באינסטגרם.</span>
+    </p>
+  </div>
+  <div class="snap" style="margin-top:2.5rem">
+    <article class="cell">
+      <p class="kicker accent">01 / 04</p>
+      <a class="film" href="https://www.instagram.com/reel/DcJU1nIMZHo/" target="_blank" rel="noreferrer">
+        <img src="img/reel-1.jpg" alt="">
+        <span class="play"><span class="disc"><span class="tri"></span></span></span>
+      </a>
+      <h3 class="lede" style="margin:1.1rem 0 0">
+        <span class="en">A standard afternoon in an artist’s life</span>
+        <span class="he">צהריים סטנדרטיים בחייו של אמן</span>
+      </h3>
+    </article>
+    <article class="cell">
+      <p class="kicker accent">02 / 04</p>
+      <a class="film" href="https://www.instagram.com/reel/DbYqDvyM7Se/" target="_blank" rel="noreferrer">
+        <img src="img/reel-2.jpg" alt="">
+        <span class="play"><span class="disc"><span class="tri"></span></span></span>
+      </a>
+      <h3 class="lede" style="margin:1.1rem 0 0">Have a mind that is open to EVERYTHING</h3>
+    </article>
+    <article class="cell">
+      <p class="kicker accent">03 / 04</p>
+      <a class="film" href="https://www.instagram.com/reel/DbBkdEWsuxJ/" target="_blank" rel="noreferrer">
+        <img src="img/reel-3.jpg" alt="">
+        <span class="play"><span class="disc"><span class="tri"></span></span></span>
+      </a>
+      <h3 class="lede" style="margin:1.1rem 0 0">
+        <span class="en">Israeli art</span><span class="he">אומנות ישראלית</span>
+      </h3>
+    </article>
+    <article class="cell">
+      <p class="kicker accent">04 / 04</p>
+      <a class="film" href="https://www.instagram.com/reel/Dam3nKzMaqZ/" target="_blank" rel="noreferrer">
+        <img src="img/reel-4.jpg" alt="">
+        <span class="play"><span class="disc"><span class="tri"></span></span></span>
+      </a>
+      <h3 class="lede" style="margin:1.1rem 0 0">
+        <span class="en">The exhibition of Aji Bam Bam</span>
+        <span class="he">התערוכה של אג׳י באם באם</span>
+      </h3>
+    </article>
+  </div>
+</section>
+
+<section id="works" style="padding-top:4rem">
+  <div class="wrap">
+    <p class="kicker accent">Stills</p>
+    <h2 class="section" style="margin:.75rem 0 0">
+      <span class="en">Works</span><span class="he">עבודות</span>
+    </h2>
+    <p class="muted" style="margin:.5rem 0 0">
+      <span class="en">Swipe the works — from his Instagram only.</span>
+      <span class="he">החליקו בין העבודות — רק מאינסטגרם שלו.</span>
+    </p>
+  </div>
+  <div class="snap" style="margin-top:2.5rem">
+    <article class="cell">
+      <p class="kicker accent">01 / 03</p>
+      <div class="still"><img src="img/untitled.jpg" alt="Untitled"></div>
+      <p class="kicker faint" style="margin:1rem 0 0">01</p>
+      <h3 class="lede" style="margin:.25rem 0 0"><span class="en">Untitled</span><span class="he">ללא כותרת</span></h3>
+      <p class="muted" style="font-size:.9rem;margin:.75rem 0 0">— · 2026</p>
+      <p class="muted" style="font-size:.9rem"><span class="en">Mixed media</span><span class="he">מדיה מעורבת</span></p>
+      <p class="kicker accent" style="margin:.75rem 0 0"><span class="en">In studio</span><span class="he">בסטודיו</span></p>
+    </article>
+    <article class="cell">
+      <p class="kicker accent">02 / 03</p>
+      <div class="still"><img src="img/untitled-ii.jpg" alt="Untitled II"></div>
+      <p class="kicker faint" style="margin:1rem 0 0">02</p>
+      <h3 class="lede" style="margin:.25rem 0 0"><span class="en">Untitled II</span><span class="he">ללא כותרת ב׳</span></h3>
+      <p class="muted" style="font-size:.9rem;margin:.75rem 0 0">— · 2026</p>
+      <p class="muted" style="font-size:.9rem"><span class="en">Mixed media</span><span class="he">מדיה מעורבת</span></p>
+      <p class="kicker accent" style="margin:.75rem 0 0"><span class="en">In studio</span><span class="he">בסטודיו</span></p>
+    </article>
+    <article class="cell">
+      <p class="kicker accent">03 / 03</p>
+      <div class="still"><img src="img/hero.jpg" alt="From the Heart"></div>
+      <p class="kicker faint" style="margin:1rem 0 0">03</p>
+      <h3 class="lede" style="margin:.25rem 0 0"><span class="en">From the Heart</span><span class="he">יצירה שיצאה מהלב</span></h3>
+      <p class="muted" style="font-size:.9rem;margin:.75rem 0 0">100 × 70 cm · 2026</p>
+      <p class="muted" style="font-size:.9rem"><span class="en">Painting</span><span class="he">ציור</span></p>
+      <p class="kicker accent" style="margin:.75rem 0 0"><span class="en">Available</span><span class="he">זמין לרכישה</span></p>
+    </article>
+  </div>
+</section>
+
+<section id="about" class="wrap" style="padding:4rem 0">
+  <p class="kicker">Credits</p>
+  <h2 class="section" style="margin:.75rem 0 0">
+    <span class="en">Maayan Fireberg</span><span class="he">מעין פיירברג</span>
+  </h2>
+  <p class="kicker accent" style="margin:1.25rem 0 0">Aji Bam Bam · אג׳י באם באם</p>
+  <p class="lede" style="max-width:36rem;margin:2rem 0 0">
+    <span class="en">There isn’t a word for it. He paints. He films the studio. He sells the work.</span>
+    <span class="he">אין לזה מילה. הוא מצייר. הוא מצלם את הסטודיו. הוא מוכר את העבודה.</span>
+  </p>
+  <p class="muted" style="max-width:36rem;margin:1.25rem 0 0;font-size:.9rem;line-height:1.6">
+    <span class="en">Young Israeli painter. Every still and every reel here is from @aji.bam.bam0 — nothing invented.</span>
+    <span class="he">צייר ישראלי צעיר. כל סטילס וכל ריל כאן מגיעים מ־@aji.bam.bam0 — בלי המצאות.</span>
+  </p>
+  <a class="kicker" href="https://www.instagram.com/aji.bam.bam0/" target="_blank" rel="noreferrer" style="display:inline-flex;min-height:44px;align-items:center;margin-top:1.25rem">@aji.bam.bam0</a>
+  <div class="grid2">
+    <img src="img/about.jpg" alt="Aji Bam Bam">
+    <img src="img/reel-2.jpg" alt="">
+  </div>
+</section>
+
+<section id="inquiry" class="wrap" style="padding:4rem 0">
+  <p class="kicker">Inquiry</p>
+  <h2 class="section" style="margin:.75rem 0 0">
+    <span class="en">For the work.</span><span class="he">לעבודה.</span>
+  </h2>
+  <div class="rule"></div>
+  <p class="muted" style="max-width:28rem;font-size:.9rem;line-height:1.6">
+    <span class="en">Contact TBD. Instagram is the studio line until a dedicated address is set.</span>
+    <span class="he">יצירת קשר תיקבע. אינסטגרם הוא קו הסטודיו עד שתהיה כתובת.</span>
+  </p>
+  <a class="cta" href="https://www.instagram.com/aji.bam.bam0/" target="_blank" rel="noreferrer" style="margin-top:1.5rem">@aji.bam.bam0</a>
+</section>
+
+<footer class="wrap" style="padding:2.5rem 0 3rem">
+  <p style="font-weight:500;margin:0" lang="he">אג׳י באם באם</p>
+  <p class="kicker" style="margin:.35rem 0 0">Maayan Fireberg</p>
+  <p class="faint" style="margin:1.5rem 0 0;font-size:.75rem">
+    <span class="en">Concept file for artist approval. Images from Instagram @aji.bam.bam0.</span>
+    <span class="he">קובץ קונספט לאישור האמן. דימויים מאינסטגרם @aji.bam.bam0.</span>
+  </p>
+</footer>
+
+<script>
+function setLang(lang){
+  document.documentElement.lang = lang;
+  document.documentElement.dir = lang === "he" ? "rtl" : "ltr";
+}
+</script>
+</body>
+</html>

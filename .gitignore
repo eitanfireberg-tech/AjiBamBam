@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.output/
+.vercel/output/
+.tanstack/tmp/
+.vinxi/
+.env
+.env.local
+*.log
+.grok/

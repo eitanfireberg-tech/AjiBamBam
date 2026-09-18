@@ -1,0 +1,36 @@
+{
+  "url": "http://127.0.0.1:8080/",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "AJI BAM BAM",
+      "hasCanvas": false,
+      "bodyTextLen": 3020,
+      "bodyTextHash": "4afe5e941d7d9aad6dab8fa8130b890d895aedf4cee422e7c5337a28386097c1",
+      "bodyTextPrefix": "אג׳י באם באם AJI BAM BAM REELS WORKS ABOUT INQUIRY @AJI.BAM.BAM0",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-preview.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "AJI BAM BAM",
+      "hasCanvas": false,
+      "bodyTextLen": 2918,
+      "bodyTextHash": "9fe4030fdc7059fe4557fda2a36693c8fc46b4e80cfcb70089687f38f89fdb81",
+      "bodyTextPrefix": "אג׳י באם באם AJI BAM BAM MAAYAN FIREBERG Aji Bam Bam אג׳י באם בא",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-preview-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/app-builder-preview.json"
+}

@@ -1,0 +1,172 @@
+@import url("https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Heebo:wght@200;300;400;500;600;700;800&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #070707;
+  --color-fg: #f3f1ec;
+  --color-muted: #8c8880;
+  --color-faint: #5c5954;
+  --color-accent: #e85c04;
+  --color-accent-fg: #070707;
+  --color-line: #242220;
+  --color-surface: #111110;
+  --color-paper: #f3f1ec;
+
+  --font-sans: "Heebo", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Heebo", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Frank Ruhl Libre", "Times New Roman", ui-serif, serif;
+
+  --text-kicker: 0.6875rem;
+  --text-display: clamp(3.15rem, 16vw, 9.25rem);
+  --text-section: clamp(2rem, 6vw, 4.25rem);
+  --text-lede: clamp(1.15rem, 2.4vw, 1.55rem);
+  --tracking-kicker: 0.28em;
+  --tracking-display: -0.035em;
+  --leading-display: 0.86;
+  --leading-section: 0.95;
+
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 8px;
+
+  --shadow-border: 0 0 0 1px rgb(243 241 236 / 0.08);
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background: var(--color-bg);
+    color: var(--color-fg);
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background: var(--color-bg);
+    color: var(--color-fg);
+    min-height: 100svh;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  ::selection {
+    background: var(--color-accent);
+    color: var(--color-accent-fg);
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  img {
+    outline: 1px solid rgb(243 241 236 / 0.08);
+    outline-offset: -1px;
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display);
+  }
+
+  .text-display {
+    font-size: var(--text-display);
+    line-height: var(--leading-display);
+    letter-spacing: var(--tracking-display);
+    font-weight: 200;
+  }
+
+  .text-section {
+    font-size: var(--text-section);
+    line-height: var(--leading-section);
+    letter-spacing: var(--tracking-display);
+    font-weight: 300;
+  }
+
+  .kicker {
+    font-size: var(--text-kicker);
+    letter-spacing: var(--tracking-kicker);
+    font-weight: 500;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+
+  .rail {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    font-size: var(--text-kicker);
+    font-weight: 500;
+  }
+
+  .ken-burns {
+    animation: kenburns 32s cubic-bezier(0.22, 1, 0.36, 1) alternate infinite;
+    will-change: transform;
+  }
+
+  .marquee-track {
+    animation: marquee 48s linear infinite;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@keyframes kenburns {
+  from {
+    transform: scale(1.04) translate3d(0, 0, 0);
+  }
+  to {
+    transform: scale(1.16) translate3d(-2.2%, 1.6%, 0);
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+[dir="rtl"] .marquee-track {
+  animation-name: marquee-rtl;
+}
+
+@keyframes marquee-rtl {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .ken-burns,
+  .marquee-track {
+    animation: none !important;
+  }
+}
